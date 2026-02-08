@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% block title %}AI Solar Calculator - Al Muslim Engineers{% endblock %}
+
+{% block content %}
+<section class="form-section">
+    <div class="form-container">
+        <div class="form-card form-card-large">
+            <div class="form-header">
+                <div class="form-icon" style="background: var(--secondary-100);">
+                    <i class="fas fa-robot" style="color: var(--secondary-700);"></i>
+                </div>
+                <h1>AI Solar Calculator</h1>
+                <p>Get personalized solar recommendations based on your energy needs</p>
+            </div>
+            
+            <div class="calculator-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8);">
+                <div class="calculator-form">
+                    <form method="POST" action="{{ url_for('solar_calculator') }}">
+                        <div class="form-group">
+                            <label for="monthly_bill">Monthly Electricity Bill (PKR)</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <input type="number" id="monthly_bill" name="monthly_bill" 
+                                       required placeholder="e.g., 15000" min="1000">
+                            </div>
+                            <small class="form-hint">Enter your average monthly electricity bill</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="roof_area">Available Roof Area (sq ft)</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-home"></i>
+                                <input type="number" id="roof_area" name="roof_area" 
+                                       required placeholder="e.g., 500" min="100">
+                            </div>
+                            <small class="form-hint">Approximate area available for solar panels</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="property_type">Property Type</label>
+                            <select id="property_type" name="property_type">
+                                <option value="residential">Residential</option>
+                                <option value="commercial">Commercial</option>
+                                <option value="industrial">Industrial</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-full btn-large">
+                            <i class="fas fa-calculator"></i> Calculate My System
+                        </button>
+                    </form>
+                    
+                    <div style="margin-top: var(--space-6); padding: var(--space-4); background: var(--bg-secondary); border-radius: var(--radius-lg);">
+                        <h4 style="font-size: 0.9rem; margin-bottom: var(--space-3); color: var(--primary-700);">
+                            <i class="fas fa-lightbulb"></i> How It Works
+                        </h4>
+                        <ul style="list-style: none; font-size: 0.85rem; color: var(--text-secondary);">
+                            <li style="margin-bottom: var(--space-2);"><i class="fas fa-check" style="color: var(--success); margin-right: var(--space-2);"></i> Analyzes your electricity consumption</li>
+                            <li style="margin-bottom: var(--space-2);"><i class="fas fa-check" style="color: var(--success); margin-right: var(--space-2);"></i> Calculates optimal system size</li>
+                            <li style="margin-bottom: var(--space-2);"><i class="fas fa-check" style="color: var(--success); margin-right: var(--space-2);"></i> Estimates cost and savings</li>
+                            <li><i class="fas fa-check" style="color: var(--success); margin-right: var(--space-2);"></i> Determines net metering eligibility</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                {% if recommendation %}
+                <div class="calculator-results" style="background: var(--bg-secondary); padding: var(--space-6); border-radius: var(--radius-xl);">
+                    <h3 style="display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-5); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border-color);">
+                        <i class="fas fa-chart-pie" style="color: var(--primary-700);"></i> Your Recommendation
+                    </h3>
+                    
+                    <div style="text-align: center; padding: var(--space-5); background: var(--primary-50); border-radius: var(--radius-lg); margin-bottom: var(--space-5);">
+                        <span style="display: block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: var(--space-1);">Recommended Capacity</span>
+                        <span style="font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; color: var(--primary-700);">{{ recommendation.recommended_capacity }} kW</span>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-3); margin-bottom: var(--space-5);">
+                        <div style="text-align: center; padding: var(--space-3); background: var(--bg-primary); border-radius: var(--radius-lg);">
+                            <span style="display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: var(--space-1);">Est. Cost</span>
+                            <span style="font-weight: 600; color: var(--text-primary);">PKR {{ "{:,.0f}".format(recommendation.estimated_cost) }}</span>
+                        </div>
+                        <div style="text-align: center; padding: var(--space-3); background: var(--bg-primary); border-radius: var(--radius-lg);">
+                            <span style="display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: var(--space-1);">Monthly Savings</span>
+                            <span style="font-weight: 600; color: var(--success);">PKR {{ "{:,.0f}".format(recommendation.monthly_savings) }}</span>
+                        </div>
+                        <div style="text-align: center; padding: var(--space-3); background: var(--bg-primary); border-radius: var(--radius-lg);">
+                            <span style="display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: var(--space-1);">Payback</span>
+                            <span style="font-weight: 600; color: var(--text-primary);">{{ recommendation.payback_period }} Years</span>
+                        </div>
+                        <div style="text-align: center; padding: var(--space-3); background: var(--bg-primary); border-radius: var(--radius-lg);">
+                            <span style="display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: var(--space-1);">Carbon Offset</span>
+                            <span style="font-weight: 600; color: var(--text-primary);">{{ recommendation.carbon_offset }} Tons/yr</span>
+                        </div>
+                    </div>
+                    
+                    <div style="padding: var(--space-4); background: var(--bg-primary); border-radius: var(--radius-lg); margin-bottom: var(--space-4);">
+                        <div style="display: flex; justify-content: space-between; padding: var(--space-2) 0; border-bottom: 1px solid var(--border-color);">
+                            <span style="font-size: 0.9rem; color: var(--text-secondary);"><i class="fas fa-bolt" style="margin-right: var(--space-2);"></i>Monthly Generation</span>
+                            <strong>{{ recommendation.monthly_generation }} kWh</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: var(--space-2) 0; border-bottom: 1px solid var(--border-color);">
+                            <span style="font-size: 0.9rem; color: var(--text-secondary);"><i class="fas fa-chart-bar" style="margin-right: var(--space-2);"></i>Monthly Consumption</span>
+                            <strong>{{ recommendation.monthly_consumption }} kWh</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: var(--space-2) 0;">
+                            <span style="font-size: 0.9rem; color: var(--text-secondary);"><i class="fas fa-home" style="margin-right: var(--space-2);"></i>Required Roof Area</span>
+                            <strong>{{ recommendation.required_area }} sq ft</strong>
+                        </div>
+                    </div>
+                    
+                    {% if recommendation.net_metering_eligible %}
+                    <div style="display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4); background: rgba(16, 185, 129, 0.1); border-radius: var(--radius-lg); margin-bottom: var(--space-4);">
+                        <i class="fas fa-check-circle" style="font-size: 1.5rem; color: var(--success);"></i>
+                        <div>
+                            <strong style="display: block; color: var(--success);">Net Metering Eligible</strong>
+                            <span style="font-size: 0.85rem; color: var(--text-secondary);">Your system qualifies for net metering (5kW+)</span>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div style="display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4); background: rgba(245, 158, 11, 0.1); border-radius: var(--radius-lg); margin-bottom: var(--space-4);">
+                        <i class="fas fa-info-circle" style="font-size: 1.5rem; color: var(--warning);"></i>
+                        <div>
+                            <strong style="display: block; color: var(--warning);">Gross Metering Recommended</strong>
+                            <span style="font-size: 0.85rem; color: var(--text-secondary);">Net metering requires 5kW or larger system</span>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <div style="display: flex; gap: var(--space-3);">
+                        <a href="{{ url_for('apply_metering') }}" class="btn btn-primary btn-full">
+                            <i class="fas fa-file-alt"></i> Apply for Metering
+                        </a>
+                    </div>
+                </div>
+                {% else %}
+                <div style="display: flex; align-items: center; justify-content: center; padding: var(--space-8); background: var(--bg-secondary); border-radius: var(--radius-xl);">
+                    <div style="text-align: center;">
+                        <i class="fas fa-calculator" style="font-size: 4rem; color: var(--primary-300); margin-bottom: var(--space-4);"></i>
+                        <h3 style="margin-bottom: var(--space-2);">Get Your Recommendation</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Fill in your details to see how much you can save</p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

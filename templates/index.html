@@ -1,0 +1,403 @@
+{% extends 'base.html' %}
+
+{% block title %}Al Muslim Engineers - Solar Solutions Rawalpindi{% endblock %}
+
+{% block content %}
+<!-- Hero Section - Redesigned without full background image -->
+<section class="hero">
+    <div class="hero-container">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-sun"></i> Pakistan's Leading Solar Provider
+            </div>
+            <h1 class="hero-title">Power Your Future with <span class="highlight">Clean Energy</span></h1>
+            <p class="hero-subtitle">Complete solar solutions for homes and businesses in Rawalpindi</p>
+            <p class="hero-description">From 1kW to 50kW systems, we provide net metering, gross metering, premium products, and professional installation services.</p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('solar_calculator') }}" class="btn btn-primary btn-large">
+                    <i class="fas fa-calculator"></i> AI Solar Calculator
+                </a>
+                <a href="{{ url_for('apply_metering') }}" class="btn btn-outline btn-large">
+                    <i class="fas fa-file-alt"></i> Apply Now
+                </a>
+            </div>
+            <div class="hero-stats-row">
+                <div class="hero-stat">
+                    <span class="stat-num">{{ stats.installations }}+</span>
+                    <span class="stat-text">Installations</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="stat-num">{{ stats.clients }}+</span>
+                    <span class="stat-text">Happy Clients</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="stat-num">{{ stats.capacity }}+</span>
+                    <span class="stat-text">kW Installed</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="hero-image-wrapper">
+                <img src="{{ url_for('static', filename='images/hero-bg.jpg') }}" alt="Solar Installation" class="hero-image">
+                <div class="floating-card card-1">
+                    <i class="fas fa-bolt"></i>
+                    <div>
+                        <span class="card-value">5.5 hrs</span>
+                        <span class="card-label">Peak Sun</span>
+                    </div>
+                </div>
+                <div class="floating-card card-2">
+                    <i class="fas fa-leaf"></i>
+                    <div>
+                        <span class="card-value">Eco</span>
+                        <span class="card-label">Friendly</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="services" id="services">
+    <div class="section-container">
+        <div class="section-header">
+            <span class="section-tag">Our Services</span>
+            <h2 class="section-title">Complete Solar Solutions</h2>
+            <p class="section-description">End-to-end services tailored to your energy needs</p>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <h3>Net Metering</h3>
+                <p>Export excess power to grid and earn credits. Available for 5kW+ systems.</p>
+                <a href="{{ url_for('apply_metering') }}" class="service-link">Apply Now <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-plug"></i>
+                </div>
+                <h3>Gross Metering</h3>
+                <p>Sell all solar power to grid. Perfect for 1kW to 50kW systems.</p>
+                <a href="{{ url_for('apply_metering') }}" class="service-link">Apply Now <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h3>Maintenance</h3>
+                <p>Professional cleaning, inspection, and repair services.</p>
+                <a href="{{ url_for('maintenance') }}" class="service-link">Request Service <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <h3>Solar Products</h3>
+                <p>Premium panels, inverters, batteries at competitive prices.</p>
+                <a href="{{ url_for('products') }}" class="service-link">Shop Now <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works">
+    <div class="section-container">
+        <div class="section-header">
+            <span class="section-tag">Process</span>
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-description">Simple steps to start your solar journey</p>
+        </div>
+        
+        <div class="steps-container">
+            <div class="step-item">
+                <div class="step-number">01</div>
+                <div class="step-content">
+                    <i class="fas fa-calculator"></i>
+                    <h3>Calculate</h3>
+                    <p>Use our AI calculator to find your optimal system size</p>
+                </div>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step-item">
+                <div class="step-number">02</div>
+                <div class="step-content">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Apply</h3>
+                    <p>Submit your metering application online</p>
+                </div>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step-item">
+                <div class="step-number">03</div>
+                <div class="step-content">
+                    <i class="fas fa-search"></i>
+                    <h3>Survey</h3>
+                    <p>Our engineers assess your property</p>
+                </div>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step-item">
+                <div class="step-number">04</div>
+                <div class="step-content">
+                    <i class="fas fa-cogs"></i>
+                    <h3>Install</h3>
+                    <p>Professional installation by experts</p>
+                </div>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step-item">
+                <div class="step-number">05</div>
+                <div class="step-content">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Connect</h3>
+                    <p>Grid connection and start saving</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- AI Calculator CTA Section -->
+<section class="ai-section">
+    <div class="section-container">
+        <div class="ai-grid">
+            <div class="ai-content">
+                <div class="ai-badge">
+                    <i class="fas fa-robot"></i> AI-Powered
+                </div>
+                <h2>Smart Solar Calculator</h2>
+                <p>Get personalized recommendations based on your electricity consumption, roof area, and location. Our AI analyzes multiple factors to suggest the optimal system.</p>
+                <ul class="ai-features">
+                    <li><i class="fas fa-check"></i> Optimal system sizing</li>
+                    <li><i class="fas fa-check"></i> Accurate cost estimation</li>
+                    <li><i class="fas fa-check"></i> Savings projection</li>
+                    <li><i class="fas fa-check"></i> Payback analysis</li>
+                </ul>
+                <a href="{{ url_for('solar_calculator') }}" class="btn btn-primary btn-large">
+                    <i class="fas fa-calculator"></i> Try Calculator
+                </a>
+            </div>
+            <div class="ai-visual">
+                <div class="calculator-preview-card">
+                    <div class="preview-header">
+                        <i class="fas fa-solar-panel"></i>
+                        <span>Your Recommendation</span>
+                    </div>
+                    <div class="preview-result">
+                        <span class="result-label">Recommended Capacity</span>
+                        <span class="result-value">5 kW</span>
+                    </div>
+                    <div class="preview-stats">
+                        <div class="preview-stat">
+                            <span>PKR 400K</span>
+                            <small>Est. Cost</small>
+                        </div>
+                        <div class="preview-stat">
+                            <span>PKR 8K/mo</span>
+                            <small>Savings</small>
+                        </div>
+                        <div class="preview-stat">
+                            <span>4 Years</span>
+                            <small>Payback</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="featured-products">
+    <div class="section-container">
+        <div class="section-header">
+            <span class="section-tag">Products</span>
+            <h2 class="section-title">Featured Solar Products</h2>
+            <p class="section-description">Premium quality equipment for your installation</p>
+        </div>
+        
+        <div class="products-grid">
+            {% for product in featured_products %}
+            <div class="product-card">
+                <div class="product-image">
+                    {% if product.image %}
+                        <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }}">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='images/solar-panel-1.jpg') }}" alt="{{ product.name }}">
+                    {% endif %}
+                </div>
+                <div class="product-info">
+                    <span class="product-category">{{ product.category|title }}</span>
+                    <h3>{{ product.name }}</h3>
+                    <div class="product-meta">
+                        {% if product.wattage %}
+                            <span class="product-wattage"><i class="fas fa-bolt"></i> {{ product.wattage }}W</span>
+                        {% endif %}
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">PKR {{ "{:,.0f}".format(product.price) }}</span>
+                        <a href="{{ url_for('product_detail', product_id=product.id) }}" class="btn btn-primary btn-sm">View</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="section-cta">
+            <a href="{{ url_for('products') }}" class="btn btn-outline">View All Products <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </div>
+</section>
+
+<!-- Gallery Preview Section -->
+<section class="gallery-preview">
+    <div class="section-container">
+        <div class="section-header">
+            <span class="section-tag">Portfolio</span>
+            <h2 class="section-title">Our Projects</h2>
+            <p class="section-description">Successful installations across Rawalpindi</p>
+        </div>
+        
+        <div class="gallery-grid">
+            {% for project in gallery_projects %}
+            {% set images = project.images|fromjson if project.images else ['project-1.jpg'] %}
+            <div class="gallery-item">
+                <img src="{{ url_for('static', filename='images/' + images[0]) }}" alt="{{ project.title }}">
+                <div class="gallery-overlay">
+                    <span class="gallery-category">{{ project.category|title }}</span>
+                    <h3>{{ project.title }}</h3>
+                    <p>{{ project.system_capacity }}kW System</p>
+                    <a href="{{ url_for('gallery_project_detail', project_id=project.id) }}" class="gallery-link">View Project</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="section-cta">
+            <a href="{{ url_for('gallery') }}" class="btn btn-outline">View All Projects <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials">
+    <div class="section-container">
+        <div class="section-header">
+            <span class="section-tag">Testimonials</span>
+            <h2 class="section-title">What Our Clients Say</h2>
+            <p class="section-description">Feedback from satisfied customers</p>
+        </div>
+        
+        <div class="testimonials-grid">
+            {% for feedback in feedbacks %}
+            <div class="testimonial-card">
+                <div class="testimonial-rating">
+                    {% for i in range(feedback.rating) %}
+                        <i class="fas fa-star"></i>
+                    {% endfor %}
+                </div>
+                <p class="testimonial-text">"{{ feedback.comment }}"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="author-info">
+                        <h4>{{ feedback.user.full_name }}</h4>
+                        <span>{{ feedback.service_type|title if feedback.service_type else 'Customer' }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="section-container">
+        <div class="cta-box">
+            <div class="cta-content">
+                <h2>Ready to Go Solar?</h2>
+                <p>Join thousands of satisfied customers in Rawalpindi. Start saving on electricity bills today!</p>
+            </div>
+            <div class="cta-buttons">
+                <a href="{{ url_for('signup') }}" class="btn btn-primary btn-large">Get Started</a>
+                <a href="{{ url_for('solar_calculator') }}" class="btn btn-outline btn-large">Calculate Savings</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Info Section -->
+<section class="contact-info">
+    <div class="section-container">
+        <div class="contact-grid">
+            <div class="contact-card">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Visit Us</h3>
+                <p>Main Office, Saddar<br>Rawalpindi, Pakistan</p>
+            </div>
+            <div class="contact-card">
+                <i class="fas fa-phone-alt"></i>
+                <h3>Call Us</h3>
+                <p>+92-300-1234567<br>Mon - Sat, 9AM - 6PM</p>
+            </div>
+            <div class="contact-card">
+                <i class="fas fa-envelope"></i>
+                <h3>Email Us</h3>
+                <p>info@almuslim.com<br>support@almuslim.com</p>
+            </div>
+            <div class="contact-card">
+                <i class="fas fa-clock"></i>
+                <h3>Working Hours</h3>
+                <p>Monday - Saturday<br>9:00 AM - 6:00 PM</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Stats counter animation
+    const statNumbers = document.querySelectorAll('.stat-num');
+    const animateStats = () => {
+        statNumbers.forEach(stat => {
+            const target = parseInt(stat.textContent);
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    stat.textContent = target + '+';
+                    clearInterval(timer);
+                } else {
+                    stat.textContent = Math.floor(current) + '+';
+                }
+            }, 30);
+        });
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateStats();
+                observer.disconnect();
+            }
+        });
+    });
+    
+    const heroStats = document.querySelector('.hero-stats-row');
+    if (heroStats) {
+        observer.observe(heroStats);
+    }
+</script>
+{% endblock %}
